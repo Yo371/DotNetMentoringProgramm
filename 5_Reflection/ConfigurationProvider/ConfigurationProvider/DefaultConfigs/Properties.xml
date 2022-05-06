@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<properties>
+	<Options>
+		<property name="FilePathConfig" value="DefaultConfigs/app.config"/>
+		<property name="JsonPathConfig" value="DefaultConfigs/appsettings.json"/>
+	</Options>
+</properties>
