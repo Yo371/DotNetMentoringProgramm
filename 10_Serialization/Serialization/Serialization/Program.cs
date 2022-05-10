@@ -4,7 +4,16 @@ using Serialization.Models;
 
 Console.WriteLine("Hello, World!");
 
-Department department = new Department() { DepartmentName = "Somename" };
+Department department = new Department() { DepartmentName = "Somename",
+    Employees = new List<Employee>()
+{
+    new ("Petr"),
+    new ("Sidr"),
+    new ("Innokentiy"),
+
+} };
+
+Console.WriteLine(department);
 
 string filePath = @"..\..\..\Data\Department.save";
 
@@ -20,7 +29,7 @@ department = null;
 
 department = (Department)dataSerializer.BinaryDesirialize(filePath);
 
-Console.WriteLine(department.DepartmentName);
+Console.WriteLine(department);
 
 dataSerializer.XmlSerialize(typeof(Department), department, xmlFilePath);
 
@@ -28,7 +37,7 @@ department = null;
 
 department = dataSerializer.XmlDeserialize(typeof(Department), xmlFilePath) as Department;
 
-Console.WriteLine(department.DepartmentName);
+Console.WriteLine(department);
 
 dataSerializer.JsonSerialize(department, jsonFilePath);
 
@@ -36,4 +45,13 @@ department = null;
 
 department = dataSerializer.JsonDeserialize(typeof(Department), jsonFilePath) as Department;
 
-Console.WriteLine(department.DepartmentName);
+Console.WriteLine(department);
+
+var department2 = department.Clone() as Department;
+
+department2.Employees.Add(new Employee("department2Employee"));
+department2.DepartmentName = "Department2";
+
+Console.WriteLine("----------");
+Console.WriteLine(department);
+Console.WriteLine(department2);
