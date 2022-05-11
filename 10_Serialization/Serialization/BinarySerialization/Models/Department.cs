@@ -14,7 +14,6 @@ namespace Serialization.Models
     {
         public string DepartmentName { get; set; }
 
-        [XmlArrayItem("MemberName")]
         public List<Employee> Employees { get; set; }
 
         public Department(string departmentName, List<Employee> employees)
