@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Serialization.Models
 {
     [Serializable]
-    public class Employee //: ISerializable
+    public class Employee
     {
         public string EmployeeName { get; set; }
 
@@ -19,11 +19,6 @@ namespace Serialization.Models
 
         public Employee()
         {
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            //throw new NotImplementedException();
         }
     }
 }

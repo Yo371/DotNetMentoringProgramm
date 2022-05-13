@@ -1,1 +1,4 @@
-{"DepartmentName":"JsonDepartment","Employees":[{"EmployeeName":"Petr"},{"EmployeeName":"Sidr"},{"EmployeeName":"Innokentiy"}]}
+{
+  "DepartmentName": "JsonDepartment",
+  "Employees": [{ "EmployeeName": "Petr" }, { "EmployeeName": "Sidr" }, { "EmployeeName": "Innokentiy" }]
+}

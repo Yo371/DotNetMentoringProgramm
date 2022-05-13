@@ -1,5 +1,6 @@
 ﻿using Serialization;
 using Serialization.Models;
+using XmlSerialization.Models;
 
 string xmlFilePath = @"..\..\..\Data\Department.xml";
 

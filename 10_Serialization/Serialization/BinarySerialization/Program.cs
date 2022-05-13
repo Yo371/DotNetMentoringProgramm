@@ -1,4 +1,5 @@
-﻿using Serialization;
+﻿using BinarySerialization.Models;
+using Serialization;
 using Serialization.Models;
 
 string filePath = @"..\..\..\Data\Department.data";

@@ -1,4 +1,5 @@
-﻿using Serialization;
+﻿using JsonSerialization.Models;
+using Serialization;
 using Serialization.Models;
 
 string jsonFilePath = @"..\..\..\Data\Department.json";

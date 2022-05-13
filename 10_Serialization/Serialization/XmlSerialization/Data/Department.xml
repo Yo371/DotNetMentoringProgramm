@@ -1,1 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?><Department xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><DepartmentName>XmlDepartment</DepartmentName><Employees><Employee><EmployeeName>Petr</EmployeeName></Employee><Employee><EmployeeName>Sidr</EmployeeName></Employee><Employee><EmployeeName>Innokentiy</EmployeeName></Employee></Employees></Department>
+<?xml version="1.0" encoding="utf-8"?>
+
+<Department xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<NameOfDepartment>XmlDepartment</NameOfDepartment>
+	<ListOfEmployeesInDepartment>
+		<Employee>
+			<EmployeeName>Petr</EmployeeName>
+		</Employee>
+		<Employee>
+			<EmployeeName>Sidr</EmployeeName>
+		</Employee>
+		<Employee>
+			<EmployeeName>Innokentiy</EmployeeName>
+		</Employee>
+	</ListOfEmployeesInDepartment>
+</Department>

@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Serialization.Models;
 
-namespace Serialization.Models
+namespace XmlSerialization.Models
 {
     [Serializable]
     public class Department : ICloneable
     {
+        [XmlElement(ElementName = "NameOfDepartment")]
         public string DepartmentName { get; set; }
 
+        [XmlElement]
+        [XmlArray("ListOfEmployeesInDepartment")]
+        [XmlArrayItem("EmployeeName")]
         public List<Employee> Employees { get; set; }
 
         public Department(string departmentName, List<Employee> employees)
