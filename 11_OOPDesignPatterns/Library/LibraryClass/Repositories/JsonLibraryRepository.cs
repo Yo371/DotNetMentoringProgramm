@@ -12,7 +12,7 @@ namespace LibraryClass.Repositories
             _path = path;
         }
 
-        public List<LibraryItem>? GetAll()
+        public List<LibraryItem> GetAll()
         {
             List<LibraryItem> outputList;
 
@@ -23,6 +23,7 @@ namespace LibraryClass.Repositories
             JsonSerializer jsonSerializer = new JsonSerializer();
 
             jsonSerializer.TypeNameHandling = TypeNameHandling.Auto;
+
             outputList = jsonSerializer.Deserialize<List<LibraryItem>>(jsonReader);
 
 

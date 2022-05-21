@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LibraryClass.Attributes
+﻿namespace LibraryClass.Attributes
 {
     public enum Measure
     {
@@ -14,15 +8,9 @@ namespace LibraryClass.Attributes
     [AttributeUsage(AttributeTargets.Class)]
     public class CacheableAttribute : Attribute
     {
-        public TimeSpan TimeSpan { get; set; }
         public long TimeoutSeconds { get; set; }
 
         public Measure Measure { get; set; }
-
-        public CacheableAttribute(TimeSpan timeSpan)
-        {
-            this.TimeSpan = timeSpan;
-        }
 
         public CacheableAttribute(long timeout, Measure measure)
         {

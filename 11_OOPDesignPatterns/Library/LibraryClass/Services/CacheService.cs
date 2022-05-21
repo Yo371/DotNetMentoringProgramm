@@ -1,15 +1,13 @@
-﻿using Library.Models;
-using LibraryClass.Helpers;
+﻿using LibraryClass.Helpers;
 using LibraryClass.Models;
 
 namespace LibraryClass.Services
 {
-    internal class CacheService
+    public class CacheService
     {
-
         private static CacheService _instance;
 
-        public static CacheService Instance => _instance ?? (_instance = new CacheService());
+        public static CacheService Instance => _instance ??= new CacheService();
 
         private CacheService()
         {
@@ -19,21 +17,30 @@ namespace LibraryClass.Services
 
         public CashedItem<Card> GetCachedItem(Guid guid)
         {
-            var cachedItem = CashedItems[guid];
-            if (cachedItem != null && !IsExpired(cachedItem))
+            try
             {
-                cachedItem.CreationDate = DateTime.Now;
-                return cachedItem;
+                var cachedItem = CashedItems[guid];
+                if (cachedItem != null && !IsExpired(cachedItem))
+                {
+                    cachedItem.CreationDate = DateTime.Now;
+                    return cachedItem;
+                }
+                else if (cachedItem != null)
+                {
+                    CashedItems.Remove(cachedItem.Item.NumberOfCard);
+                }
             }
-            else if (cachedItem != null)
+            catch (KeyNotFoundException e)
             {
-                CashedItems.Remove(cachedItem.Item.NumberOfCard);
+                Console.WriteLine("Card not found in cache, Card will return from origin");
             }
-
+            
             return null;
         }
 
-        public bool IsExpired(CashedItem<Card> cachedItem) => (DateTime.Now - cachedItem.CreationDate).TotalSeconds > CacheHelper.GetTimeout(cachedItem.Item);
+        public bool IsExpired(CashedItem<Card> cachedItem) =>
+            CacheHelper.GetTimeout(cachedItem.Item.LibraryItem) != Timeout.Infinite && (DateTime.Now - cachedItem.CreationDate).TotalSeconds > CacheHelper.GetTimeout(cachedItem.Item.LibraryItem);
+
 
         public void AddToCache(CashedItem<Card> cachedItem) => CashedItems.Add(cachedItem.Item.NumberOfCard, cachedItem);
     }

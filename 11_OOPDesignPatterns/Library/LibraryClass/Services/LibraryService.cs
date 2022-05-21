@@ -1,17 +1,17 @@
 ﻿using Library.Models;
 using LibraryClass.Helpers;
+using LibraryClass.Models;
 using LibraryClass.Repositories;
-using LibraryClass.Services;
 
-namespace LibraryClass.Models
+namespace LibraryClass.Services
 {
-    public class Library
+    public class LibraryService
     {
         public Dictionary<Guid, Card> Items { get; set; }
 
         private ILibraryRepository<LibraryItem> _repository;
 
-        public Library(ILibraryRepository<LibraryItem> repository)
+        public LibraryService(ILibraryRepository<LibraryItem> repository)
         {
             _repository = repository;
             Items = new Dictionary<Guid, Card>();
@@ -36,39 +36,35 @@ namespace LibraryClass.Models
         {
             var resultItem = CacheService.Instance.GetCachedItem(guid)?.Item;
 
-            if (resultItem != null) return resultItem;
+            if (resultItem != null)
+            {
+                Console.WriteLine("Returned from cache");
+                return resultItem;
+            }
 
             resultItem = Items[guid];
 
-            if(resultItem != null && CacheHelper.IsCacheable(resultItem)) CacheService.Instance.AddToCache(new()
+            if (resultItem != null && CacheHelper.IsCacheable(resultItem.LibraryItem))
             {
-                Item = resultItem,
-                CreationDate = DateTime.Now
-            });
+                Console.WriteLine("Added to cache");
+                CacheService.Instance.AddToCache(new()
+                {
+                    Item = resultItem,
+                    CreationDate = DateTime.Now
+                });
+            }
 
+            Console.WriteLine("Returned from origin");
             return resultItem;
         }
 
-        public void AddItem(LibraryItem item)
+        public void AddItem(LibraryItem item, Guid guid)
         {
-            var guid = Guid.NewGuid();
             Items.Add(guid, new Card()
             {
                 LibraryItem = item,
                 NumberOfCard = guid
             });
-        }
-    }
-    
-    public class Card
-    {
-        public LibraryItem LibraryItem { get; set; }
-
-        public Guid NumberOfCard { get; set; }
-
-        public string GetInfo()
-        {
-            return $"Card [{NumberOfCard}] with {LibraryItem.GetInfo()}";
         }
     }
 }

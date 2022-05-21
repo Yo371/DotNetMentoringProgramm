@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Library.Models;
 using LibraryClass.Attributes;
 
-namespace Library.Models
+namespace LibraryClass.Models
 {
-    //attribute [Cacheable (no expiration TimeSpan)]
-    // Helper.IsCacheable(LibraryItem) ? GetTimeSpan(LibaryItem). IsMarkedByAttribute(Libraryitem, typeof(Cacheable))
-    [Cacheable(1, Measure.Minutes)]
+    [Cacheable(5, Measure.Seconds)]
     public class Book : LibraryItem
     {
         public int ISBN { get; set; }
