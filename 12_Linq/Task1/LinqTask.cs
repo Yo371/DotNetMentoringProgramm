@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using Task1.DoNotChange;
 
 namespace Task1
@@ -57,7 +58,7 @@ namespace Task1
         )
         {
             ThrowArgumentNullExceptionIfNull(customers);
-            return customers.Where(c => c.Orders.Length > 0).Select((c, d) => (c, c.Orders.Min(o => o.OrderDate)));
+            return customers.Where(c => c.Orders.Length > 0).Select(c => (c, c.Orders.Min(o => o.OrderDate)));
         }
 
         public static IEnumerable<(Customer customer, DateTime dateOfEntry)> Linq5(
@@ -67,7 +68,6 @@ namespace Task1
             ThrowArgumentNullExceptionIfNull(customers);
             return Linq4(customers)
                 .OrderBy(c => c.dateOfEntry)
-                .ThenBy(c => c.dateOfEntry)
                 .ThenByDescending(c => c.customer.Orders.Sum(o => o.Total))
                 .ThenBy(c => c.customer.CompanyName);
         }
@@ -89,12 +89,11 @@ namespace Task1
                     Category = c,
                     UnitsInStockGroup = p.GroupBy(
                         item => item.UnitsInStock,
-                        item => item.UnitPrice,
-                        (count, price) =>
+                        ( x, v) =>
                             new Linq7UnitsInStockGroup()
                             {
-                                UnitsInStock = count,
-                                Prices = price.OrderBy(price => price)
+                                UnitsInStock = x,
+                                Prices = v.Select(e => e.UnitPrice).OrderBy(e => e)
                             })
                 });
         }
@@ -107,9 +106,8 @@ namespace Task1
         )
         {
             ThrowArgumentNullExceptionIfNull(products);
-            return products.GroupBy(p => (p.UnitPrice <= cheap) ? cheap
-                : ((p.UnitPrice <= middle) ? middle
-                    : expensive), (c, p) => (c, p));
+            return products.GroupBy(p => (p.UnitPrice <= cheap) ? cheap : ((p.UnitPrice <= middle) ? middle : expensive),
+                (c, p) => (c, p));
 
         }
 
@@ -127,9 +125,10 @@ namespace Task1
         public static string Linq10(IEnumerable<Supplier> suppliers)
         {
             ThrowArgumentNullExceptionIfNull(suppliers);
-            var result = suppliers.OrderBy(s => s.Country.Length)
-                .ThenBy(s => s.Country)
-                .Select(s => s.Country).Distinct()
+            var result = suppliers.Select(s => s.Country)
+                .Distinct()
+                .OrderBy(s => s.Length)
+                .ThenBy(s => s)
                 .ToList();
 
             return string.Join("", result);
