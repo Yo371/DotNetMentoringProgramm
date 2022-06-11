@@ -11,11 +11,6 @@ namespace AdoNet
 {
     public class ProductRepository
     {
-
-        //constr (connection string) Repository
-        //method SqlDataReader extension ToProduct(), ToOrder()
-        //isolations level db
-
         private string _connectionString;
 
         public const string AddProductQuery = "INSERT INTO dbo.Product (Name, Description, Weight, Height, Width, Length) values (@Name, @Description, @Weight, @Height, @Width, @Length)";
@@ -38,7 +33,7 @@ namespace AdoNet
                 connection.Open();
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    //queries constants
+
                     command.CommandText = AddProductQuery;
 
                     command.Parameters.AddWithValue("@Name", product.Name);
