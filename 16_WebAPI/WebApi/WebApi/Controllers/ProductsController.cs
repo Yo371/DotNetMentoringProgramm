@@ -18,9 +18,13 @@ namespace WebApi.Controllers
         [Route("api/products/")]
         public IEnumerable<Product> GetAllProducts([FromQuery]int pageNumber = 0, [FromQuery] int pageSize = 10, [FromQuery] int? categoryId = null)
         {
-            var list = _context.Products.Skip(pageSize * pageNumber).Take(pageSize).ToList();
+            var products = _context.Products.AsQueryable();
+
+            if (categoryId != null)
+                products = products.Where(p => p.CategoryID == categoryId);
+
+            return products.Skip(pageSize * pageNumber).Take(pageSize).ToList();
             
-            return categoryId==null ? list : list.Where(p => p.CategoryID == categoryId);
         }
 
         [HttpGet]

@@ -1,39 +1,15 @@
-﻿using System.Net;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using var client = new HttpClient();
 
-namespace HTTPproject.Client
-{
-    [TestClass]
-    public class Program
-    {
-    
-        /*async static Task Main(string[] args)
-        {
-
-                 test();
-            //await GetMyNameAsync(client);
-      
-            Console.ReadKey();
-        }
-
-        static async Task GetMyNameAsync(HttpClient client)
-        {
-            var result = await client.GetAsync("https://localhost:7288/api/products");
-            
-
-            Console.WriteLine(await result.Content.ReadAsStringAsync());
-        }*/
-
-        [TestMethod]
-        public async Task test()
-        {
-            using var client = new HttpClient();
-
-            var result = await client.GetAsync("https://localhost:5001/api/products");
+var result = await client.GetAsync("https://localhost:7288/api/products");
 
 
-            Console.WriteLine(await result.Content.ReadAsStringAsync());
-            Assert.IsTrue(true);
-        }
-    }
-}
+Console.WriteLine(await result.Content.ReadAsStringAsync());
+
+
+result = await client.GetAsync("https://localhost:7288/api/products/1");
+
+Console.WriteLine(result.Content.ReadAsStringAsync());
+
+result = await client.GetAsync("'https://localhost:7288/api/products?pageNumber=1&pageSize=10&categoryId=3'");
+
+Console.WriteLine(result.Content.ReadAsStringAsync());
