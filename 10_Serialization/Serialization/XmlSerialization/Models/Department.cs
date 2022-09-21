@@ -11,7 +11,6 @@ namespace XmlSerialization.Models
         [XmlElement(ElementName = "NameOfDepartment")]
         public string DepartmentName { get; set; }
 
-        [XmlElement]
         [XmlArray("ListOfEmployeesInDepartment")]
         [XmlArrayItem("EmployeeName")]
         public List<Employee> Employees { get; set; }
